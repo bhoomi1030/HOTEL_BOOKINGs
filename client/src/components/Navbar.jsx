@@ -29,6 +29,9 @@ const Navbar = () => {
     const {user ,navigate , isOwner , setShowHotelReg } = useAppContext()
     useEffect(() => {
 
+
+
+
        if(location.pathname !== '/') {
             setIsScrolled(true);
             return ;
@@ -63,9 +66,9 @@ const Navbar = () => {
                             <div className={`${isScrolled ? "bg-gray-700" : "bg-white"} h-0.5 w-0 group-hover:w-full transition-all duration-300`} />
                         </a>
                     ))}
-                    <button className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? 'text-black' : 'text-white'} transition-all`} onClick={() => navigate('/owner')}>
-                        Dashboard
-                    </button>
+                    { user && (<button className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? 'text-black' : 'text-white'} transition-all`} onClick={() =>isOwner? navigate('/owner') : setShowHotelReg(true)}>
+                        { isOwner ?  'Dashboard' : 'List your Owner'}
+                    </button>)}
                 </div>
                 {/* Desktop Right */}
                 <div className="hidden md:flex items-center gap-4">
@@ -109,8 +112,8 @@ const Navbar = () => {
                     ))}
             
 
-                    { user && (<button className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all" onClick={() =>  navigate('/owner') }>
-                       Dashboard
+                    { user && (<button className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all" onClick={() => isOwner? navigate('/owner') : setShowHotelReg(true)}>
+                        { isOwner ?  'Dashboard' : 'List your Owner'}
                     </button>)}
         
                    {!user && <button onClick = {openSignIn} className="bg-black text-white px-8 py-2.5 rounded-full transition-all duration-500">
